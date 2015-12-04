@@ -1,0 +1,611 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+    <title>Bubble Sort</title>
+    
+</head>
+<body>
+    <script type="text/javascript">
+        function bubbleSort() {
+            var tempValue = "";
+            var numberArray = [12, 10, 15, 11, 20, 2];
+            var arraylength = numberArray.length;
+            for (var i = 0; i < arraylength; i++) //Hold the first element
+            {
+                for (var j = i + 1; j < arraylength; j++) //Hold the next element from the first element
+                {
+                    //alert("position " + i + " == " + numberArray[i]);
+                    //alert("position " + j + " == " + numberArray[j]);
+                    if (Number(numberArray[i]) > Number(numberArray[j]))    //comparing first and next element  LARGER TO SMALLER
+                    {
+                        //document.write('if position' + i + ' ' + numberArray[i] + ' <span style="color:red;">is greater than position</span> ' + j + ' ' + numberArray[j] + ' then . . .<br />');
+                        tempValue = numberArray[j];
+                        //document.write('position ' + j + ' ' + numberArray[j] + ' <span style="color:red;">MOVES TO THE <b>TEMP VARIABLE HOLDER</b> with the value of</span> ' + tempValue + '<br />');
+                        numberArray[j] = numberArray[i];
+                        //document.write(' and position ' + i + ' ' + numberArray[i] + ' <span style="color:red;">MOVES TO</span> Position' + j + ' ' + numberArray[j] + '<br />');
+                        numberArray[i] = tempValue;
+                        //document.write(' and the <span style="color:red;"><b>TEMP VARIABLE VALUE</b></span>' + tempValue + ' <span style="color:red;">MOVES TO</span> Position' + i + ' ' + numberArray[i] + '<br /><br />');
+
+
+
+
+                        //document.write(i + " = " + numberArray[i] + "<br />");
+                    }
+                }
+            }
+            return numberArray;
+        }
+        bubbleSort();
+        console.log(bubbleSort());
+         
+        function bubbleSort() {
+            var tempVal = "";
+            var numArray = [12, 10, 15, 11, 20, 2];
+            arrLength = numArray.length;
+            for (var i = 0; i < arrLength; i++) {
+                for (var j = (i + 1) ; j < arrLength; j++) {
+                    if (numArray[i] > numArray[j]) {
+                        tempVal = numArray[j];
+                        numArray[j] = numArray[i];
+                        numArray[i] = tempVal;
+                    }
+                }
+            }
+            return numArray;
+        }
+
+        //document.write("<br />" + numberArray);
+        /*function shuffleArray(array) {
+            for (var i = arraylength - 1; i > 0; i--) {
+                var j = Math.floor(Math.random() * (i + 1));
+                var tempValue = array[i];
+                array[i] = array[j];
+                array[j] = tempValue;
+            }
+            return array;
+        }*/
+
+        /**
+         * Randomize array element order in-place.
+         * Using Fisher-Yates shuffle algorithm.
+         */
+        function shuffleArray(array) {
+            
+            var arraylength = array.length;
+            var tempValue = "";
+            for (var i = arraylength - 1; i > 0; i--) {
+                var j = Math.floor(Math.random() * (i + 1));
+                tempValue = array[i];
+                array[i] = array[j];
+                array[j] = tempValue;
+            }
+            return array;
+            
+        }
+
+        var array = [1, 2, 3, 4, 5, 6];
+        shuffleArray();
+        console.log(array);
+
+
+
+         
+        function FindEvenOrOddNumber() {
+
+            var numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+               
+            for (var i = 0; i < numbers.length; i++) {
+                       
+                /*
+                * use modulus operator to check if the number is even or odd. 
+                * If we divide any number by 2 and reminder is 0 then the number is
+                * even, otherwise it is odd.
+                */
+                         
+                if (numbers[i] % 2 == 0) {
+                    //console.log(numbers[i] + " is even number.");
+                } else {
+                    console.log(numbers[i] + " is an odd number.");
+                    console.log(numbers[i + 1] + " is now an even number");
+                }
+                               
+            }
+        }
+        FindEvenOrOddNumber();
+
+
+        function generatePyramid() {
+            var totalNumberofRows = 5,
+                arr;
+            for (var i = 1; i <= totalNumberofRows; i++) {
+                arr = [];
+                for (var j = 1; j <= i; j++) {
+                    arr.push(j);
+                }
+                console.log(arr.join(" ") + "\n");
+            }
+        }
+        generatePyramid();
+
+
+        function reverse(str) {
+            if (str === "") {
+                return "";
+            } else {
+                return reverse(str.substr(1)) + str.charAt(0);
+            }
+        }
+        console.log(reverse("you are a nice dude"));
+
+
+        function myfunc(num) {
+
+            str = 3;
+
+            return num;
+
+        }
+        var str = 2;
+        var num = 2;
+        console.log(myfunc(3) + str);
+
+
+        /*  **************************************************************************************************************************
+            function declarations load before any code is executed.
+
+            While function expressions load only when the interpreter reaches that line of code.
+
+            So if you try to call a function expression before it's loaded, you'll get an error
+
+            But if you call a function declaration, it'll always work. Because no code can be called until all declarations are loaded. 
+        
+            ***************************************************************************************************************************/
+
+
+            function myConcat(separator) {
+                var args = Array.prototype.slice.call(arguments, 1);
+                return args.join(separator);
+            }
+
+            //  You can pass any number of arguments to this function, 
+            //  and it creates a list using each argument as an item in the list.
+
+            // returns "red, orange, blue"
+            myConcat(", ", "red", "orange", "blue");
+
+            // returns "elephant; giraffe; lion; cheetah"
+            myConcat("; ", "elephant", "giraffe", "lion", "cheetah");
+
+            // returns "sage. basil. oregano. pepper. parsley"
+            myConcat(". ", "sage", "basil", "oregano", "pepper", "parsley");
+
+        /*  **************************************************************
+            log4(64) = 3     THE LOGARITHM OF 64 TO BASE 4  == 3
+
+            The 7 different JavaScript types:
+
+            Undefined
+            Number
+            String
+            Boolean
+            Object
+            Function
+            Null
+
+            **************************************************************
+
+            The "this" keyword in JavaScript is used 
+            to reference the object in which the function is operating
+
+            **************************************************************
+
+            The double equal sign == checks for equality. 
+            The triple equal sign === checks for both equality and type.
+
+            **************************************************************
+
+            The 3 boolean operators in JavaScript:
+            && – the “and” operator.
+            || – the “or” operator.
+            ! – the “not” operator.
+
+            **************************************************************
+
+
+            An array is a variable that can store multiple values.
+
+            function youSelected(button) {
+                alert('You selected '+button.value+'.');
+            }
+
+            <input type="radio" name="number" value="the first button" onchange="youSelected(this)">#1<br />
+
+            <input type="radio" name="number" value="the second button" onchange="youSelected(this)">#2<br />
+
+            <input type="radio" name="number" value="the third button" onchange="youSelected(this)">#3
+
+            ****************************************************************
+
+            Event bubbling transfers events contained within the child node to the parent node. 
+            It’s a beneficial method because of its speediness, as it only requires the code 
+            to traverse the DOM tree one time.
+
+            ****************************************************************
+
+            The window.onload event won’t trigger until every single element on the page 
+            has been fully loaded, including images and CSS. The downside to this is it 
+            might take a while before any code is actually executed. 
+            
+            You can use onDocumentReady to execute code as soon as the DOM is loaded instead.
+
+            *********************************************************************************
+
+            CLOSURE
+            In JavaScript, it’s possible to have functions within functions. Closure refers to 
+            the system by which inner functions have access to the variables used in the 
+            outer function, even after the outer function has executed completely.
+            
+
+            function init() {
+                var name = "Mozilla"; // name is a local variable created by init
+                function displayName() { // displayName() is the inner function, a closure
+                    alert(name); // use variable declared in the parent function    
+                }
+                displayName();    
+            }
+            init();
+
+            init() creates a local variable "name" and then a function called "displayName()". 
+            "displayName()" is an inner function that is defined inside "init()" and is only available 
+            within the body of that function. "displayName()" has no local variables of its own, 
+            however it has access to the variables of outer functions and so can use the 
+            variable "name" declared in the parent function.
+
+            ****************************************************************************
+
+            EXTEND FUNCTION
+
+            var initial = function() {
+                console.log( 'initial function!' );
+            }
+
+            var iWantToExecuteThisOneToo = function () {
+                console.log( 'the other function that i wanted to execute!' );
+            }
+
+            function extendFunction( oldOne, newOne ) {
+                return (function() {
+                    oldOne();
+                    newOne();
+                })();
+            }
+
+            var extendedFunction = extendFunction( initial, iWantToExecuteThisOneToo );
+
+            A NATIVE JS extend() FUNCTION
+
+            /**
+            * Merge defaults with user options
+            * @private
+            * @param {Object} defaults Default settings
+            * @param {Object} options User options
+            * @returns {Object} Merged values of defaults and options
+            */
+            var extend = function ( defaults, options ) {
+                var extended = {};
+                var prop;
+                for (prop in defaults) {
+                    if (Object.prototype.hasOwnProperty.call(defaults, prop)) {
+                        extended[prop] = defaults[prop];
+                    }
+                }
+                for (prop in options) {
+                    if (Object.prototype.hasOwnProperty.call(options, prop)) {
+                        extended[prop] = options[prop];
+                    }
+                }
+                return extended;
+            };
+
+            var defaults = {
+                number: 1,
+                bool: true,
+                magic: 'real',
+                animal: 'whale',
+                croutons: 'delicious'
+            };
+
+            var options = {
+                number: 2,
+                magic: 'real',
+                animal: 'porpoise',
+                bool: false,
+                random: 42
+            };
+
+            var settings = extend(defaults, options);
+
+            console.log(settings);
+            // Returns: Object{animal: "porpoise", bool: false, croutons: "delicious", magic: "real", number: 2, random: 42}
+
+
+            /**********************************************************************************
+
+            http://hangar.runway7.net/javascript/guide
+            
+            .CALL()  &  .APPLY()
+
+            var person1 = {name: 'Marvin', age: 42, size: '2xM'};
+            var person2 = {name: 'Zaphod', age: 42000000000, size: '1xS'};
+
+            var sayHello = function(){
+                alert('Hello, ' + this.name);
+            };
+
+            var sayGoodbye = function(){
+                alert('Goodbye, ' + this.name);
+            };
+
+            sayHello();
+            sayGoodbye();
+
+            The above will give errors (if you're lucky), or just unexpected 
+            results (if you aren't).
+
+            sayHello.call(person1);
+            sayGoodbye.call(person2);
+
+            sayHello.apply(person1);
+            sayGoodbye.apply(person2);
+
+            All four of these lines do exactly the same thing. The run sayHello or sayGoodbye 
+            in the scope of either person1 or person2.
+
+            Both call and apply perform very similar functions: they execute a function in 
+            the context, or scope, of the first argument that you pass to them. Also, 
+            they're both functions that can only be called on other functions. You're not 
+            going to able to run person1.call(), nor does it make any sense to do so.
+
+            The difference is when you want to seed this call with a set of arguments. 
+            Say you want to make a say() method that's a little more dynamic:
+
+            AJAX EXAMPLE FROM EXPEDIA TripFinder  2008
+
+            var map = null;
+            var latLon = new VELatLong(39.394111, -97.074532);
+            var arrPin = [];
+            var pinpos = 0;
+            var selStyle = "r";  // a, h, r
+            var selMode = VEMapMode.Mode2D;
+            var fixed = 0;
+            var showSwitch = 1;  
+            var xmlObj = "";
+            var xmlDoc = "";
+            var currentLocation = {};
+            currentLocation.gridIconID = "";
+            currentLocation.linkID = "";
+            currentLocation.pinID = "";
+
+            var NUM_ITEMS = 10
+            var buttonAry = [];
+            var holdingAry = [];
+            var icons = [];
+            var featureLinkAry = [];
+            var gridDiv = [];
+            var isCmdFromFlash = false;
+            var isFirstLoad = true;		
+
+
+            function createXMLHttpRequest() {
+                if (window.ActiveXObject) {
+                    xmlDoc = new ActiveXObject('Microsoft.XMLHTTP');  
+                } else if (window.XMLHttpRequest) {
+                    xmlDoc = new XMLHttpRequest();
+                }
+            } 
+
+            function loadXML() {
+                createXMLHttpRequest();
+                xmlDoc.onreadystatechange = parseXML;
+                xmlDoc.open('GET','tripfinderxml.asp?cat=' + cat + '&reg=' + reg, true);
+                xmlDoc.send(null);
+            }
+
+            function parseXML() {
+                if (xmlDoc.readyState == 4) {
+                    if (xmlDoc.status == 200) {
+                        try {
+                            xmlDoc = xmlDoc.responseXML;                
+                            xmlObj = xmlDoc.getElementsByTagName("row");
+                            for (var x = 0; x < xmlObj.length; x++) {
+                                var pin = {};
+                                pin.pinpos = pinpos;
+                                pin.locid = xmlObj[x].getAttribute("locid");	                	                
+                                pin.region = getNodeText(xmlObj[x], "region");
+                                pin.location = getNodeText(xmlObj[x], "location");
+                                pin.state = getNodeText(xmlObj[x], "state");
+                                pin.site = getNodeText(xmlObj[x], "site");
+                                pin.desc = getNodeText(xmlObj[x], "description");
+                                pin.img = getNodeText(xmlObj[x], "image");
+                                pin.cat = getNodeText(xmlObj[x], "categories");
+                                pin.hot = getNodeText(xmlObj[x], "hotelprice");
+                                pin.hotlink = getNodeText(xmlObj[x], "hotellink");
+                                pin.pkg = getNodeText(xmlObj[x], "pkgprice");
+                                pin.pkglink = getNodeText(xmlObj[x], "pkglink");
+                    
+                                pin.lat = xmlObj[x].getAttribute("lat");                        
+                                pin.lng = xmlObj[x].getAttribute("long"); 
+	                 
+                                pin.customIcon = "<div class='pinImgOff' onmouseover='this.className=\"pinImgOn\";' onmouseout='this.className=\"pinImgOff\";'>"+(pinpos+1)+"</div>";
+
+                                arrPin[pinpos] = pin;
+                                pinpos++
+                            }
+                            GetMap();
+                        } catch (ex) {}
+                    }
+                }
+            }
+
+
+
+            **************************************************************/
+
+
+
+            
+
+
+
+
+    </script>
+    <p style="font-weight:bold;">
+        SCOPE. IT'S ALWAYS "RUNTIME". THIS MEANS THAT THE SCOPE OF A FUNCTION IS ALWAYS THE CONTEXT IN WHICH IT "EXECUTES",
+        NOT THE CONTEXT IN WHICH IT WAS "DEFINED".
+    </p>
+    <!--
+    **  Pascal's Triangle
+
+        
+        row = []    means "Set row to be an empty array." The [] is just an array with no items. We could have chosen any starting array such as [1, 2, 1].
+        row.push(1)     means "Push the number 1 onto the end of the array." If row used to be [1, 2, 1], now it will be [1, 2, 1, 1].
+        row.length  is just the length of the array. If row is [1, 2, 1, 1], then row.length is 4.
+        row[j] += row[j - 1]    updates the jth item of the array by adding to it the value of the j-1th item of the array.
+        row.join(' ')   means "Make a big string joining all the elements of the array with a space between each element." 
+        
+        The computation of a row is done using a for loop. Here you can read the loop as follows: "Begin j at row.length-2, and as long as it is no smaller than 1, run the body of the loop and then decrease j by 1". Let us take that apart in some more detail. The "for" statement expresses all this by providing a place for the four pieces of code you usually need for any loop:
+
+    The initalizer statement runs only once, at the very beginning of the loop. Here the initializer sets up the variable j at row.length-2.
+    The loop test expression is checked each time we are about to begin looping again, including the first time through. If the expression is false, the body of the loop is skipped and the loop is done. For example, when we are making the first row of Pascal's triangle, row.length will be 1, which means that j will start off as -1, so the test expression j>=1 will start off false, and the body of the loop will not execute at all. 1 from the j variable.
+    The loop body within {curly braces} is the main piece of code that you want to run repeatedly. It runs right after the test succeeds.
+    The loop advance statement runs after the body each time we are getting ready to make another loop. Here the loop advances by subtracting 1 from j. 
+
+    What is the loop actually doing? Here is a diagram of the contents of row right after we have computed row #4 (the length of the array is 5, and the items are indexed from 0 to 4):
+    i 	    0 	1 	2 	3 	4
+    row[i] 	1 	4 	6 	4 	1 	 
+
+    When the button is clicked, first we push a "1" onto the end of the array, extending its length by one item, so now the array has six items.
+    i 	    0 	1 	2 	3 	4 	5
+    row[i] 	1 	4 	6 	4 	1 	1
+    j 					    j=4 	
+
+    The loop variable j starts out at row.length-2, which is 4.
+    i 	    0 	1 	2 	3 	4 	5
+    row[i] 	1 	4 	6 	4 	5 	1
+				        → 	j=4 	
+
+    The loop body row[j] += row[j - 1] finds the number 4 in slot #3 and then adds it into slot #4, writing a 5 into that slot.
+
+    Then the loop advance statement decreases j by 1 and the loop is repeated several times:
+    i 	    0 	1 	2 	3 	4 	5
+    row[i] 	1 	4 	6 	10 	5 	1
+			        → 	j=3 		
+
+    i 	    0 	1 	2 	3 	4 	5
+    row[i] 	1 	4 	10 	10 	5 	1
+		        → 	j=2 			
+
+    i 	    0 	1 	2 	3 	4 	5
+    row[i] 	1 	5 	10 	10 	5 	1
+	        → 	j=1 				
+
+    i 	    0 	1 	2 	3 	4 	5
+    row[i] 	1 	5 	10 	10 	5 	1
+	        j=0 					
+
+    Finally, after j is decreased to 0, the loop test j >= 1 is no longer true, and the loop exits instead of running the loop body again.
+
+    We are left with row #5 of Pascal's triangle in the array. 
+    -->
+    <center>
+        <input type="button" value="Add Row" />
+        
+    </center>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script>
+        var row = [];
+        $('input[type=button]').click(function () {
+            row.push(1);
+            var rowlength = row.length;
+            alert('array length = ' + rowlength);
+            for (var i = rowlength - 2; i >= 1; i -= 1) {
+                alert(' array starts at slot ' + i + " with value of " + row[i]);
+                alert('back one - add value ' + row[i-1]);
+                row[i] += row[i - 1];
+                
+                alert('value ' + row[i] + " in position " + i);
+            }
+            alert('row.join() = ' + row.join(' '));
+            $('center').append('<div>' + row.join(' ') + '</div>');
+        });
+        var row = [];
+        $('input[type=button]').click(function () {
+            row.push(1);
+            var rowlength = row.length;
+            for (var i = rowlength - 2; i >= 1; i -= 1) {
+                row[i] += row[i - 1];
+            }
+            $('center').append('<div>' + row.join(' ') + '</div>')
+        });
+
+        /*function getRow(rowIndex) {
+            var result = [];
+
+            if (rowIndex < 0)
+                return result;
+
+            result.push(1);
+            for (var i = 1; i <= rowIndex; i++) {
+                document.write('i = ' + i + "<br>");
+                for (var j = result.length - 2; j >= 0; j--) {
+                    document.write('j = ' + j + "<br>");
+                    result[j + 1] = result[j] + result[j + 1];
+                    document.write('j result[j + 1] = ' + result[j + 1] + "<br>");
+                }
+                result.push(1);
+                document.write('result.push(1) = ' + result.push(1) + "<br><br><br>");
+            }
+            return result;
+        }
+
+        console.log(getRow(6));*/
+
+
+
+        /*function f(r,c) {
+            if (r == 0 || c == 0) {
+                return 1;
+            }
+            return f(r - 1, c) + f(r, c - 1);
+        }
+
+
+        function generate(numRows) {
+            var result = [];
+            if (numRows <= 0)
+                return result;
+
+            var pre = [];
+            pre.push(1);
+            result.push(pre);
+
+            for (var i = 2; i <= numRows; i++) {
+                var cur = [];
+
+                cur.push(1); //first
+                for (var j = 0; j < pre.length - 1; j++) {
+                    cur.push(pre[j] + pre[j + 1]); //middle
+                }
+                cur.push(1);//last
+
+                result.push(cur);
+                pre = cur;
+            }
+            return result;
+        }*/
+
+
+    </script>
+
+</body>
+</html>

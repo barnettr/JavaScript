@@ -1,0 +1,713 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>JavaScript Fun &amp; Games</title>
+    <style type="text/css">
+        #myContainer {
+            margin-left: 200px;
+            margin-top: 100px;
+        }
+
+        body {
+            font-family: Candara;
+            font-size: 12px;
+            font-weight: bold;
+        }
+    </style>
+    <script type="text/javascript" src="js/jquery.1.4.3.min.js"></script>
+    <!--<script type="text/javascript" src="js/json.js"></script>-->
+    <script language="javascript" type="text/javascript">
+
+        //        function addLinks() {
+        //var onclick = function (num) { return function () { alert(num) } };
+        //            for (i = 0; i < 5; i++) {
+
+        //                link = document.createElement("a");
+
+        //                link.innerHTML = "Link " + i + "<br /><br />";
+
+        //                link.style.cssText = "cursor:pointer;font-family:Candara;font-size:14px;font-weight:bold;margin:0 auto;";
+
+        //                link.onclick = onclick(i);
+
+        //                document.getElementById('myContainer').appendChild(link);
+
+        //            }
+
+        //        };
+
+
+        function buildLinks() {
+            for (var i = 0, link; i < 5; i++) {
+                link = document.createElement("a");
+                link.setAttribute('href', 'somewhere.html');
+                link.setAttribute('title', 'Link ' + i);
+                link.setAttribute('alt', 'Link ' + i);
+                link.innerHTML = "Link " + i + "<br /><br />";
+                link.style.cssText = "cursor:pointer;font-family:Candara;font-size:14px;font-weight:bold;margin:0 auto;";
+                link.onclick = function (linkObjectInformation) {
+                    return function () {
+                        alert(linkObjectInformation);
+                    };
+                }(i);
+                document.getElementById('myContainer').appendChild(link);
+                //  $('#myContainer').append(link);  jQuery use
+            }
+        }
+
+        function buildLinks() {
+            for (var i = 0, link; i < 5; i++) {
+                link = document.createElement("a");
+                link.setAttribute("href", "some.html");
+                link.setAttribute("alt", "Link " + i);
+                link.innerHTML = "Link " + i + "<br /><br />"
+                link.onclick = function (linkObjInfo) {
+                    return function () {
+                        console.log(linkObjInfo);
+                    };
+                }(i);
+            }
+        }
+
+        function addLinks() {
+            var whatever = function (linkObjectInformation) { return function () { alert(linkObjectInformation) } };
+            var link = "";
+
+            for (i = 0; i < 5; i++) {
+                link = document.createElement("a");
+                link.setAttribute('title', 'Link ' + (i + 1));
+                link.setAttribute('alt', 'Link ' + (i + 1));
+                link.innerHTML = "Link " + (i + 1) + "<br /><br />";
+                link.style.cssText = "cursor:pointer;font-family:Candara;font-size:14px;font-weight:bold;margin:0 auto;";
+                link.onclick = whatever('Link ' + (i + 1));
+                document.getElementById('myContainer').appendChild(link);
+            }
+        };
+
+        window.onload = buildLinks;
+
+        //onload = addLinks;
+
+        function preventDef(event) {
+            event.preventDefault();
+        }
+
+        function addHandler() {
+            document.getElementById("checkbox").addEventListener("click", preventDef, false);
+        }
+
+        function removeHandler() {
+            document.getElementById("checkbox").removeEventListener("click", preventDef, false);
+        }
+
+        function simulateClick() {
+            var event = document.createEvent("MouseEvents");
+            event.initMouseEvent("click", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+            var checkbox = document.getElementById("checkbox");
+            var canceled = !checkbox.dispatchEvent(event);
+            if (canceled) {
+                // A handler called preventDefault
+                alert("canceled");
+            } else {
+                // None of the handlers called preventDefault
+                alert("not canceled");
+            }
+        }
+
+
+        //  The gist of the pattern is that it uses a self-invoking function to create a closure,
+        //  hence making it possible to have private and public properties and methods. A simple example:
+
+        var personObject = function () {
+            // Private
+            var name = "Katherine";
+
+            return {
+                getName: function () {
+                    return name;
+                },
+                setName: function (newName) {
+                    name = newName;
+                }
+            };
+        }();
+        //alert(person.name); // Undefined
+
+        alert(personObject.getName()); // "Katherine"
+        personObject.setName("Robert Barnett");
+        alert(personObject.getName()); // "Robert Barnett"
+
+
+        function talkDirty() {
+            var saying = "Oh, you little C# lover, you";
+            return alert(saying);
+        }
+        talkDirty(); // Throws an error if you alert the var "saying". It can only
+        // be called from within the function talkDirty();
+
+
+        //        function namespace() {
+        //            var a=arguments, o=null, i, j, d;
+        //            for (i=0; i<a.length; i=i+1) {
+        //                d=a[i].split(".");
+        //                o=window;
+        //                for (j=0; j<d.length; j=j+1) {
+        //                    o[d[j]]=o[d[j]] || {};
+        //                    o=o[d[j]];
+        //                }
+        //            }
+        //            return o;
+        //        };
+
+        //        if (typeof siblingObject == "undefined") {
+        //            var siblingObject = {};
+        //        }
+        //        siblingObject.namespace = function() {
+        //            function namespace() {
+        //                var a=arguments, o=null, i, j, d;
+        //                for (i=0; i<a.length; i=i+1) {
+        //                    d=a[i].split(".");
+        //                    o=window;
+        //                    for (j=0; j<d.length; j=j+1) {
+        //                        o[d[j]]=o[d[j]] || {};
+        //                        o=o[d[j]];
+        //                    }
+        //                }
+        //                return o;
+        //            };
+        //
+        //        };
+
+        siblingObject = function () {
+            return {
+                vars: { siblings: null },
+                init: function () {
+                    this.vars.siblings = ["John", "Liza", "Peter", "Ralph", "Ginger", "Katherine", "Bill"];
+                },
+                siblingCount: function () {
+                    var siblingLength = this.vars.siblings.length;
+                    return siblingLength;
+                },
+                joinSiblingNames: function () {
+                    return alert("I have " + siblingObject.siblingCount() + " siblings:\n\n" + this.vars.siblings.join("\n"));
+                }
+            };
+        }();
+        siblingObject.init();
+        siblingObject.joinSiblingNames();   //  Outputs  I have 7 siblings: John, Liza, Peter, Ralph, Ginger, Katherine, Bill"
+
+        function Employee(name, salary) {
+            // name and salary are private instance fields
+            this.getName = function () {
+                return name;
+            };
+            this.getSalary = function () {
+                return salary;
+            };
+            this.setSalary = function (amount) {
+                salary = amount;
+            };
+            this.increaseSalary = function (increment) {
+                if (increment < 0.0) {
+                    alert("Huh! can't decrement!");
+                }
+                salary += increment;
+            };
+        }
+
+        var Bob = new Employee('Bob', 10000);
+        Bob.getSalary(20000);
+        alert(Bob.getSalary());
+        alert(Bob.getName());
+        Bob.increaseSalary(1000);
+        alert(Bob.getSalary());
+        Bob.increaseSalary(-100);
+
+        //        function siblings() {
+        //            var siblings = ["John", "Liza", "Peter"];
+        //            function siblingCount() {
+        //                var siblingsLength = siblings.length;
+        //                return siblingsLength;
+        //            }
+        //            function joinSiblingNames() {
+        //                return "I have " + siblingCount() + " siblings:\n\n" + siblings.join("\n");
+        //            }
+        //            return joinSiblingNames();
+        //        }
+        //alert(siblings()); // Outputs "I have 3 siblings: John Liza Peter"
+
+
+        try {
+            alert("closureDemo = " + closureDemo);
+        }
+        catch (e) {
+            alert("closureDemo doesn't exist yet, hit 'OK', we'll call the function that creates it and try again");
+        }
+
+        var theDemo = function () {
+            return closureDemo = "This is a closure! This string is displayed in an alertBox outside of the function which created it.";
+        }
+
+        theDemo();
+        alert(closureDemo);
+
+
+
+        function theParent() {
+
+            theChild = function () {
+                return alert("I'm the child!");
+            }
+        }
+        theParent();
+
+
+
+
+        var myObject = function () {
+
+            var privateVar = 'privateVar: this variable is a private variable named privateVar!';
+
+            var privateMethod = function () {
+                return alert('privateMethod: this is a private method, it is named privateMethod!');
+            }
+
+            return {
+                vars: {
+                    publicMessage: null,
+                    publicVar: null
+                },
+                init: function () {
+                    this.vars.publicMessage = "publicMessage: this is a public variable called 'publicMessage' made from a vars:, and an init function (this.vars.publicMessage). It is named publicMessage.";
+                    this.vars.publicVar = "publicVar: this variable is public and named publicVar! It is set in the Init() function and call initially with a Get  getPublicVar()";
+                },
+                showMessage: function () {
+                    alert(this.vars.publicMessage);
+                },
+                getPublicVar: function () {
+                    alert(this.vars.publicVar);
+                },
+
+                setPublicVar: function (value) {
+                    this.vars.publicVar = value;
+                },
+
+                callPrivateMethod: function () {
+                    privateMethod();
+                },
+                callPrivateVar: function () {
+                    alert(privateVar);
+                }
+            };
+        }();
+        myObject.init();
+        myObject.showMessage();
+        myObject.getPublicVar();
+        myObject.callPrivateMethod();
+        myObject.setPublicVar('changePublicVar: this is the changed string value for PublicVar using the changePublicVar Method. It is a Set Method. It is call again with the same Get getPublicVar().');
+        myObject.getPublicVar();
+        myObject.callPrivateVar();
+
+        //  Object Constructor with Get & Set
+
+        function objectConstructor(properties) {
+            var instance = this; // <-- store reference to instance
+
+            for (var i in properties) {
+                (function (i) { // <-- capture looping variable
+                    instance["get" + i] = function () {
+                        return alert(properties[i]);
+                    };
+
+                    instance["set" + i] = function (val) {
+                        properties[i] = val;
+                    };
+                })(i); // <-- pass the variable
+            }
+        }
+
+        var userRob = new objectConstructor({
+            firstName: "Robert",
+            lastName: "Barnett",
+            firstJob: "Golfer",
+            secondJob: "Developer",
+            age: 61
+        });
+
+        userRob.getfirstName(); // "Robert"
+        userRob.getlastName();  // "Barnett"
+        userRob.getfirstJob();  //  "Golfer"
+        userRob.getsecondJob(); //  "Developer"
+        userRob.getage();  // 35
+
+
+
+
+
+        var employees = {
+
+            "accounting": [
+                {
+                    "firstName": "John",
+                    "lastName": "Doe",
+                    "age": 23
+                },
+
+                {
+                    "firstName": "Mary",
+                    "lastName": "Smith",
+                    "age": 32
+                }
+            ],
+
+            "sales": [
+                {
+                    "firstName": "Sally",
+                    "lastName": "Green",
+                    "age": 27
+                },
+
+                {
+                    "firstName": "Jim",
+                    "lastName": "Galley",
+                    "age": 41
+                }
+            ]
+        };
+
+        $.each(employees.accounting, function (i) {
+            console.log(employees.accounting[i].firstName);
+            console.log(employees.sales[i].firstName);
+        });
+
+        //var toServer = employees.toJSONString();
+        //alert(toServer);
+        //alert(employees.toJSONString());
+
+
+
+        // object constructor
+
+        //        function cat(name) {
+        //            this.name = name;
+        //            this.talk = function () {
+        //               return alert(this.name + " says meeow!");
+        //            }
+        //        }
+
+        (function () {
+            var initializing = false, fnTest = /xyz/.test(function () { xyz; }) ? /\b_super\b/ : /.*/;
+
+            // The base Class implementation (does nothing)
+            this.Class = function () { };
+
+            // Create a new Class that inherits from this class
+            Class.extend = function (prop) {
+                var $superClass = this.prototype;
+
+                // Instantiate a base class (but only create the instance,
+                // don't run the init constructor)
+                initializing = true;
+                var prototype = new this();
+                initializing = false;
+
+                // Copy the properties over onto the new prototype
+                for (var name in prop) {
+                    // Check if we're overwriting an existing function
+                    prototype[name] = typeof prop[name] == "function" &&
+                        typeof $superClass[name] == "function" && fnTest.test(prop[name]) ?
+                        (function (name, fn) {
+                            return function () {
+                                var tmp = this.$superClass;
+
+                                // Add a new ._super() method that is the same method
+                                // but on the super-class
+                                this.$superClass = $superClass[name];
+
+                                // The method only need to be bound temporarily, so we
+                                // remove it when we're done executing
+                                var ret = fn.apply(this, arguments);
+                                this.$superClass = tmp;
+
+                                return ret;
+                            };
+                        })(name, prop[name]) :
+                        prop[name];
+                }
+
+                // The dummy class constructor
+                function Class() {
+                    // All construction is actually done in the init method
+                    if (!initializing && this.init)
+                        this.init.apply(this, arguments);
+                }
+
+                // Populate our constructed prototype object
+                Class.prototype = prototype;
+
+                // Enforce the constructor to be what we expect
+                Class.prototype.constructor = Class;
+
+                // And make this class extendable
+                Class.extend = arguments.callee;
+
+                return Class;
+            };
+        })();
+
+        var Cat = Class.extend({
+            init: function (name) {
+                this.name = name;
+            },
+            talk: function () {
+                return alert(this.name + " says meeow!");
+            }
+        });
+
+
+        Felix = new Cat("Felix");
+        Felix.talk(); //alerts "Felix says meeow!"
+
+
+        Ginger = new Cat("Ginger");
+        Ginger.talk(); //alerts "Ginger says meeow!"
+
+        Cat.prototype.changeName = function (name) {
+            this.name = name;
+        }
+
+        Socks = new Cat("Socks");
+        Socks.changeName("Bill");
+        Socks.talk(); //alerts "Bill says meeow!"
+
+        /*code for extending String object with method that writes text backwards*/
+
+        //core custom method for writing text backwards
+        function outputBackwards() {
+            for (i = this.length - 1; i >= 0; i--)
+                document.write(this.charAt(i));
+        }
+
+        //Attach custom method to string object
+        String.prototype.writeback = outputBackwards;
+
+        var message1 = "Welcome to my site!";
+        message1.writeback();
+        document.write('<br>');
+        var message2 = "Today is a beautiful day";
+        message2.writeback();
+
+        robsObj = {
+
+            property_1: "_foo1",
+            property_2: "_bar2",
+            property_3: ["Array_prop_3__position0", "Array_prop_3__position1", "Array_prop_3__position2"]
+        }
+
+        for (x in robsObj) { alert("robsObj." + x + " = " + robsObj[x]); }
+
+
+        function IsNumeric(sText) {
+            var ValidChars = "0123456789.";
+            var IsNumber = true;
+            var Char;
+
+
+            for (i = 0; i < sText.length && IsNumber == true; i++) {
+                Char = sText.charAt(i);
+                if (ValidChars.indexOf(Char) == -1) {
+                    IsNumber = false;
+                }
+            }
+            alert("IsNumber can be true or false:\n\n [1.4738223E-32] is " + IsNumber);
+
+        }
+        IsNumeric('1.4738223E-32');
+
+        var intZero = 0, strZero = '0';
+        if (intZero == '' && strZero == false) {
+            alert(typeof (intZero));
+            alert(typeof (strZero));
+        }
+
+        function displayMyUrl(ClickedLink) {
+            alert(ClickedLink.href);
+            return confirm('Do you really want to follow the link to ' + linkTo + '?')
+        }
+
+        var myValue = "foo";
+
+        function changeMyValue() {
+            var myValue = "bar";
+        }
+        changeMyValue();
+        //alert(myValue);
+
+
+        var myModule = function () {
+
+            //"private" variables:
+            var myPrivateVar = "myPrivateVar: I can be accessed only from within the myModule object.";
+
+            //"private" method:
+            var myPrivateMethod = function () {
+                return alert("myPrivateMethod: I can be accessed only from within the myModule object.");
+            }
+
+            return {
+                myPublicMethod: function () {
+                    alert("I'm accessible as myModule.myPublicMethod.");
+
+                    //Within myProject, I can access "private" vars and methods:
+
+                    alert(myPrivateVar);
+                    myPrivateMethod();
+
+                    //The native scope of myPublicMethod is myProject; we can
+                    //access public members using "this":
+
+                    alert(this.myPublicProperty);
+                },
+                myPublicProperty: " myPublicProperty: I'm accessible as myModule.myPublicProperty or this.myPublicProperty."
+            };
+
+        }(); // the parens here cause the anonymous function to execute and return
+        myModule.myPublicMethod();
+
+
+        var options = {
+            x: 123,
+            y: 'abc'
+        };
+        this.define = function (key, value) {
+            if (defined(options[key])) {
+                options[key] = value;
+            }
+        };
+        //alert(options.x);
+        //alert(options.y);
+
+        for (x in options) { alert("options." + x + " = " + options[x]); }
+
+
+
+        var Singleton = (function () {
+            var instantiated;
+            function init() {
+                /*singleton code here*/
+                return {
+                    publicProperty: 'publicProperty: called like this, Singleton.getInstance().publicProperty;',
+                    publicMethod: function () {
+                        alert('Singleton publicMethod called like this:  Singleton.getInstance().publicMethod();');
+                    }
+                }
+            }
+
+            return {
+                getInstance: function () {
+                    if (!instantiated) {
+                        instantiated = init();
+                    }
+                    return instantiated;
+                }
+            };
+        })();
+
+        /*calling public methods is then as easy as:*/
+        Singleton.getInstance().publicMethod();
+        alert(Singleton.getInstance().publicProperty);
+
+        // How to detect if a Function exists
+
+        //function functionTest(){};
+
+        if (window.functionTest) {
+
+            alert("Function 'functionTest' does Exist!");
+
+        } else {
+
+            alert("Function 'functionTest' doesn't Exist!");
+
+        }
+
+        if (typeof yourFunctionName == 'function') {
+            yourFunctionName();
+        }
+
+        // How to detect if a Variable exists
+
+        //var x = 4;
+
+        if (typeof x == "undefined") {
+
+            alert("Variable 'x' doesn't exist");
+
+        } else {
+
+            alert("Variable 'x' does exist");
+
+        }
+
+        // How to detect if a Ojbect exists
+
+        //myObject = new Object();
+
+        if (typeof myObject != "undefined") {
+
+            alert("Object test 'objectTest' does exist");
+
+        } else {
+
+            alert("Object test 'objectTest' doesn't exist");
+
+        }
+
+
+        /*
+        var map = $('sobiSearchResponseMap').empty();
+        var urlmap = "<?php echo $config->liveSite; ?>/index.php?tmpl=sobi2gcatreload&forceTask=1&sobiTask=search&option=com_sobi2";
+        var modulequery = new Ajax(urlmap, {
+            method: 'get',
+            onComplete: function () {
+                document.fireEvent("SearchMapReady");
+            },
+            update: map
+        }).request();
+        */
+
+
+    </script>
+</head>
+<body onload="addLinks();">
+
+    <div id="myContainer" class="myContainer"></div>
+    <br /><br />
+    <p><input type="checkbox" id="checkbox" /><label for="checkbox">Checkbox</label></p>
+    <p><input type="button" onclick="simulateClick();" value="Simulate click" /></p>
+    <p><input type="button" onclick="addHandler();" value="Add a click handler that calls preventDefault" /></p>
+    <p><input type="button" onclick="removeHandler();" value="Remove the click handler that calls preventDefault" /></p>
+    <br /><br />
+    <p><button style="cursor:pointer;" onclick="theChild();">theChild()</button></p>
+    <br /><br />
+    <a href="somewhere.html" target="_blank" onclick="return displayMyUrl(this);">Click This</a>
+    <!--<A HREF="somewhereElse.html" onClick="return doSomething(this)">-->
+
+    <p>
+        <a href="javascript: void(0)" onclick="window.open('popup.html',
+	'windowname2',
+	'width=200, \
+	 height=77, \
+	 directories=no, \
+	 location=no, \
+	 menubar=no, \
+	 resizable=no, \
+	 scrollbars=yes, \
+	 status=yes, \
+	 toolbar=no');
+	 return false;">Click here for specific popup window</a>
+    </p>
+
+
+</body>
+</html>
